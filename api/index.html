@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Gift Verify</title>
+
   <style>
     body {
-      font-family: Arial;
+      font-family: Arial, sans-serif;
       background: #eef1f5;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      margin: 0;
     }
 
     .card {
@@ -18,19 +21,36 @@
       border-radius: 12px;
       width: 350px;
       text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-bottom: 20px;
     }
 
     input, button {
       width: 100%;
       padding: 10px;
       margin-top: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
     }
 
     button {
-      background: purple;
+      background: #6c4cff;
       color: white;
       border: none;
       cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #5a3ee0;
+    }
+
+    #result {
+      margin-top: 15px;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -39,7 +59,7 @@
   <div class="card">
     <h2>Check Card Status</h2>
 
-    <input id="code" placeholder="Enter code">
+    <input id="code" placeholder="Enter redemption code">
 
     <button onclick="checkCode()">Check Status</button>
 
@@ -52,7 +72,9 @@
 
       const res = await fetch('/api/verify', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ code })
       });
 
