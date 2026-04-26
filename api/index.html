@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gift Verify</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #eef1f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      width: 350px;
+      text-align: center;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+    }
+
+    button {
+      background: purple;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h2>Check Card Status</h2>
+
+    <input id="code" placeholder="Enter code">
+
+    <button onclick="checkCode()">Check Status</button>
+
+    <p id="result"></p>
+  </div>
+
+  <script>
+    async function checkCode() {
+      const code = document.getElementById("code").value;
+
+      const res = await fetch('/api/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code })
+      });
+
+      const data = await res.json();
+
+      document.getElementById("result").innerText =
+        data.success ? "✅ Valid Code" : "❌ Invalid Code";
+    }
+  </script>
+</body>
+</html>
