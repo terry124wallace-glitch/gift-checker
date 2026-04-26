@@ -3,7 +3,11 @@ export default function handler(req, res) {
     return res.status(405).json({ success: false });
   }
 
-  const { code } = req.body;
+  const { code } = req.body || {};
+
+  if (!code) {
+    return res.status(400).json({ success: false });
+  }
 
   const validCodes = [
     "1234567890123456",
